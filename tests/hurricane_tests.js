@@ -1,3 +1,7 @@
+/**
+ * @file
+ * Start/Stop behavior for the test-throbber.
+ */
 (function($){
   Drupal.behaviors.hurricane_tests = {
     attach: function (context, settings) {

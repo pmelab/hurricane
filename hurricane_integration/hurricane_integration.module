@@ -67,7 +67,7 @@ function _hurricane_integration_decode($property, $value) {
   }
 
   if ($property === 'font-family') {
-    // todo: important is needed for IE < 9, find better solution
+    // Todo: Important is needed for IE < 9, a better solution may be found.
     return $value . ' !important';
   }
   if (is_array($map[$property])) {

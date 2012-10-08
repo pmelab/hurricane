@@ -2,6 +2,7 @@
  * @file
  * Wraps Drupal.ajax.prototype.beforeSend to replace throbbers with hurricane.
  */
+
 (function($){
   var hurricane_beforesend = Drupal.ajax.prototype.beforeSend;
   Drupal.ajax.prototype.beforeSend = function (xmlhttprequest, options) {

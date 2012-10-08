@@ -1,7 +1,9 @@
 /*
  * Basic form layout in three columns.
  */
-.hurricane-sliders, .hurricane-colors, .hurricane-preview {
+.hurricane-sliders,
+.hurricane-colors,
+.hurricane-preview {
   float: left;
   margin-bottom: 1em;
 }
@@ -14,7 +16,8 @@
   width: 200px;
 }
 
-.hurricane-sliders, .hurricane-colors {
+.hurricane-sliders,
+.hurricane-colors {
   margin-right: 20px;
 }
 
@@ -30,7 +33,8 @@
   padding-bottom: 0;
 }
 
-.hurricane-properties .slider, .hurricane-properties label {
+.hurricane-properties .slider,
+.hurricane-properties label {
   display: inline-block;
 }
 
@@ -43,26 +47,26 @@
 }
 
 .hurricane-properties div.slider {
+  margin-left: 10px;
   position: relative;
   top: 0.2em;
   width: 150px;
-  margin-left: 10px;
 }
 
 /*
  * Preview
  */
 .hurricane-preview {
-  position: absolute;
-  top: 50%;
   left: 450px;
   margin-top: -52px;
+  position: absolute;
+  top: 50%;
 }
 
 .preview-spinner {
   border: 2px dashed #ccc;
-  margin-right: 1em;
   line-height: 0px;
+  margin-right: 1em;
 }
 
 .preview-spinner.large .throbber {
@@ -71,23 +75,23 @@
 }
 
 .preview-spinner.medium .throbber {
-    height: 32px;
-    width: 32px;
+  height: 32px;
+  width: 32px;
 }
 
 .preview-spinner.small .throbber {
-    height: 16px;
-    width: 16px;
+  height: 16px;
+  width: 16px;
 }
 
 /*
  * farbtastic
  */
 .hurricane-farbtastic {
-  padding: 10px;
-  z-index: 5;
-  position: absolute;
-  display: none;
   background: white;
   border: 1px solid #ccc;
+  display: none;
+  padding: 10px;
+  position: absolute;
+  z-index: 5;
 }

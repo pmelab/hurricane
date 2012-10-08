@@ -24,9 +24,9 @@ jQuery.hurricane.twister = function (paper, options) {
     center = 62.5;
   }
   var shape = paper.path(shapes[options['font-weight']]);
-  var opacity = 1 - options['word-spacing']/100;
-  var speed = 1000 / (options['line-height']/25);
-  var deg = (360 * options['letter-spacing']/25);
+  var opacity = 1 - options['word-spacing'] / 100;
+  var speed = 1000 / (options['line-height'] / 25);
+  var deg = (360 * options['letter-spacing'] / 25);
   var i = 0;
   shape.attr({
     transform: 'r' + (deg * ++i) + ',' + center + ',' + center,

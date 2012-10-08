@@ -1,4 +1,5 @@
 /**
+ * @file
  * Overrides of Drupal core ajax css to support hurricane throbbers.
  */
 
@@ -14,15 +15,15 @@ div.form-managed-file {
 
 div.form-managed-file div.ajax-progress,
 div.form-managed-file div.throbber {
-  height: 1em;
+  *display: inline;
   display: inline-block;
   display: -moz-inline-stack;
-  *display: inline;
-  zoom: 1;
+  height: 1em;
   margin: 0em;
+  margin-top: -0.5em;
+  margin-left: 0.5em;
   padding: 0em;
   position: absolute;
   top: 50%;
-  margin-top: -0.5em;
-  margin-left: 0.5em;
+  zoom: 1;
 }

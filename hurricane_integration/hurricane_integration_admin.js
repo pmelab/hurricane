@@ -90,7 +90,7 @@
           $farb.show();
           $farb.css({
             left: $(this).position().left + $(this).outerWidth() + 10,
-            top: $(this).position().top - $farb.outerHeight()/2 + $(this).outerHeight()/2
+            top: $(this).position().top - $farb.outerHeight() / 2 + $(this).outerHeight() / 2
           });
           $input = $(this);
           farbtastic.linkTo(function (color) {
@@ -148,7 +148,7 @@
           var text = '';
           $.each(Drupal.settings.hurricane.map, function(property, info) {
             var value = $('#edit-hurricane-' + property, context).val();
-            text += 'settings[hurricane_' + property +'] = ' + value + '\n';
+            text += 'settings[hurricane_' + property + '] = ' + value + '\n';
           });
           return text;
         };

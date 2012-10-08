@@ -1,4 +1,5 @@
 /**
+ * @file
  * Hurricane jquery plugin.
  */
 (function($) {

@@ -2,6 +2,7 @@
  * @file
  * Replace autocomplete-textfield throbbers with hurricane.
  */
+
 (function($){
   /**
    * Wrap Drupal.jsAC.prototype.setStatus to properly active autocompletion throbber.
@@ -32,13 +33,8 @@
           $('input.form-autocomplete:visible', context).once('hurricane-autocomplete', function() {
             var height = $(this).height();
             var width = $(this).width();
-            var top = parseInt($(this).css('margin-top'))
-                + parseInt($(this).css('border-top-width'))
-                + parseInt($(this).css('padding-top'));
-            var left = parseInt($(this).css('margin-left'))
-                + parseInt($(this).css('border-left-width'))
-                + parseInt($(this).css('padding-left'))
-                + $(this).width() - height;
+            var top = parseInt($(this).css('margin-top')) + parseInt($(this).css('border-top-width')) + parseInt($(this).css('padding-top'));
+            var left = parseInt($(this).css('margin-left')) + parseInt($(this).css('border-left-width')) + parseInt($(this).css('padding-left')) + $(this).width() - height;
             $wrapper = $('<div class="hurricane-autocomplete ajax-progress"><div class="throbber"></div></div>');
             $throbber = $('.throbber', $wrapper);
             $throbber.css({

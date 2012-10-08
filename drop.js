@@ -1,7 +1,8 @@
 /**
  * @file
- * Hurricane default renderer "drop".
+ * Provides Hurricane default renderer "drop".
  */
+
 jQuery.hurricane.drop = function (paper, options, s) {
   var circle = paper.circle(64, 64, 16 + 48 * options['line-height'] / 100).attr({
     stroke:'none',
