@@ -1,0 +1,5 @@
+name = "Hurricane Integration"
+description = Replace Drupal Ajax indicators with Hurricane.
+core = "7.x"
+package = "user interface"
+dependencies[] = hurricane

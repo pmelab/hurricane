@@ -1,0 +1,5 @@
+name = "Hurricane Tests"
+description = Hurricane test page.
+core = "7.x"
+package = "user interface"
+dependencies[] = hurricane

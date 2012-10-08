@@ -1,0 +1,76 @@
+<?php
+/**
+ * @file
+ * Hurricane tests.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function hurricane_tests_menu() {
+  return array(
+    'hurricane/test' => array(
+      'title' => 'Hurricane tests',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('hurricane_tests_page'),
+      'access callback' => TRUE,
+    ),
+    'hurricane/autocomplete' => array(
+      'title' => 'Hurricane dummy autocomplete',
+      'page callback' => 'hurricane_tests_autocomplete',
+      'access callback' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Hurricane test page.
+ */
+function hurricane_tests_page($form, $form_state) {
+  $form['button'] = array(
+    '#prefix' => '<div id="hurricane-tests-ajax-wrapper">',
+    '#suffix' => '</div>',
+    '#type' => 'button',
+    '#value' => t('Hit me!'),
+    '#ajax' => array(
+      'wrapper' => 'hurricane-tests-ajax-wrapper',
+      'callback' => 'hurricane_tests_ajax_button',
+    ),
+  );
+  $form['autocomplete'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Autocomplete me!'),
+    '#autocomplete_path' => 'hurricane/autocomplete',
+  );
+  $form['big'] = array(
+    '#markup' => '<div class="ajax-progress hurricane-test-throbber"><div class="throbber"></div></div>',
+  );
+  $form['#attached'] = array(
+    'js' => array(
+      drupal_get_path('module', 'hurricane_tests') . '/hurricane_tests.js',
+    ),
+    'css' => array(
+      drupal_get_path('module', 'hurricane_tests') . '/hurricane_tests.css',
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Ajax callback for dummy test button.
+ */
+function hurricane_tests_ajax_button($form, $form_state) {
+  sleep(30);
+}
+
+/**
+ * Dummy autocompletion to test spinner.
+ */
+function hurricane_tests_autocomplete() {
+  sleep(3);
+  drupal_json_output(array(
+    'Drupal' => 'Drupal',
+    'Is' => 'Is',
+    'Awesome!' => 'Awesome!',
+  ));
+}
