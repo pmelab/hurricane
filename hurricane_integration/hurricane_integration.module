@@ -7,6 +7,9 @@
 
 /**
  * Implements hook_library_alter().
+ *
+ * Attach hurricane integration files to
+ * drupal.ajax and drupal.autocomplete libraries.
  */
 function hurricane_library_alter(&$libraries, $module) {
   global $theme;
@@ -20,23 +23,28 @@ function hurricane_library_alter(&$libraries, $module) {
   }
   $css .= " }";
   $path = drupal_get_path('module', 'hurricane_integration');
-  $ajax_js = $path . '/hurricane_ajax.js';
-  $ajax_css = $path . '/hurricane_ajax.css';
-  $libraries['drupal.ajax']['js'][$ajax_js] = array(
-    'group' => $libraries['drupal.ajax']['js']['misc/ajax.js']['group'],
-    'weight' => $libraries['drupal.ajax']['js']['misc/ajax.js']['weight'] + 1,
-  );
-  $autocomplete_js = $path . '/hurricane_autocomplete.js';
-  $autocomplete_css= $path . '/hurricane_autocomplete.css';
-  $libraries['drupal.autocomplete']['js']['misc/autocomplete.js']['weight'] = 0;
-  $libraries['drupal.autocomplete']['js'][$autocomplete_js] = array(
-    'group' => $libraries['drupal.autocomplete']['js']['misc/autocomplete.js']['group'],
-    'weight' => $libraries['drupal.autocomplete']['js']['misc/autocomplete.js']['weight'] + 1,
-  );
-  $libraries['drupal.ajax']['css'][$css] = array('type' => 'inline');
-  $libraries['drupal.ajax']['css'][$ajax_css] = array();
-  $libraries['drupal.autocomplete']['css'][$css] = array('type' => 'inline');
-  $libraries['drupal.autocomplete']['css'][$autocomplete_css] = array();
+  if (array_key_exists('drupal.ajax', $libraries)) {
+    $ajax_js = $path . '/hurricane_ajax.js';
+    $ajax_css = $path . '/hurricane_ajax.css';
+    $libraries['drupal.ajax']['js'][$ajax_js] = array(
+      'group' => $libraries['drupal.ajax']['js']['misc/ajax.js']['group'],
+      'weight' => $libraries['drupal.ajax']['js']['misc/ajax.js']['weight'] + 1,
+    );
+    $libraries['drupal.ajax']['css'][$css] = array('type' => 'inline');
+    $libraries['drupal.ajax']['css'][$ajax_css] = array();
+  }
+
+  if (array_key_exists('drupal.autocomplete', $libraries)) {
+    $autocomplete_js = $path . '/hurricane_autocomplete.js';
+    $autocomplete_css = $path . '/hurricane_autocomplete.css';
+    $libraries['drupal.autocomplete']['js']['misc/autocomplete.js']['weight'] = 0;
+    $libraries['drupal.autocomplete']['js'][$autocomplete_js] = array(
+      'group' => $libraries['drupal.autocomplete']['js']['misc/autocomplete.js']['group'],
+      'weight' => $libraries['drupal.autocomplete']['js']['misc/autocomplete.js']['weight'] + 1,
+    );
+    $libraries['drupal.autocomplete']['css'][$css] = array('type' => 'inline');
+    $libraries['drupal.autocomplete']['css'][$autocomplete_css] = array();
+  }
 }
 
 /**
@@ -63,7 +71,7 @@ function _hurricane_integration_decode($property, $value) {
     return $value . ' !important';
   }
   if (is_array($map[$property])) {
-    // Calculate keyword for keyword properties.
+    // Calculate values for keyword properties.
     if (!array_key_exists($value, $map[$property])) {
       return FALSE;
     }
