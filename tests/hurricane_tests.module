@@ -60,7 +60,7 @@ function hurricane_tests_page($form, $form_state) {
  * Ajax callback for dummy test button.
  */
 function hurricane_tests_ajax_button($form, $form_state) {
-  sleep(30);
+  sleep(3);
 }
 
 /**

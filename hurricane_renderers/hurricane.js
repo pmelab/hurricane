@@ -3,16 +3,16 @@
  * "hurricane" hurricane renderer
  */
 jQuery.hurricane.hurricane = function(paper, options) {
-  var deg = 360 / options['letter-spacing'];
-  var height = options['line-height'] * 64 / 100;
-  var width = height * options['font-size'] / 100;
-  var lines = [];
-
   // TODO: better solution for vml rotation center
   var center = 64;
   if (typeof document.addEventListener === 'undefined') {
     center = 59;
   }
+  var deg = 360 / options['letter-spacing'];
+  var height = options['line-height'] * 64 / 100;
+  var width = height * options['font-size'] / 100;
+  var lines = [];
+
 
   for (var i = 0; i < options['letter-spacing']; i++) {
     line = paper.rect(64 - width / 2, 0, width, height).attr({

@@ -139,7 +139,7 @@ function hurricane_integration_form_system_theme_settings_alter(&$form, &$form_s
   $options = array();
   $parameters = array();
   foreach ($renderers as $id => $info) {
-    if ($enabled_renderers[$id]) {
+    if (array_key_exists($id, $enabled_renderers)) {
       $parameters[$id] = $info['parameters'];
       $options[$id] = $info['label'];
       drupal_add_js($info['file']);

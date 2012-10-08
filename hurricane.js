@@ -72,8 +72,8 @@
         var height = $(this).height();
         var size = Math.min(width, height);
         var paper = Raphael(this, size, size);
-        this.hurricane = new renderer(paper, options);
         paper.setViewBox(0, 0, 128, 128, true);
+        this.hurricane = new renderer(paper, options);
         this.hurricane.paper = paper;
         $.each(Drupal.settings.hurricane.map, function(property, info){
           if (property === 'line-height' || property === 'font-size') {

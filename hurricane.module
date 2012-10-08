@@ -120,7 +120,7 @@ function _hurricane_property_map() {
       400,
       500,
       600,
-      500,
+      700,
       800,
       900,
     ),
