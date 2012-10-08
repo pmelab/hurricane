@@ -15,15 +15,15 @@ div.form-managed-file {
 
 div.form-managed-file div.ajax-progress,
 div.form-managed-file div.throbber {
+  *display: inline;
   display: inline-block;
   display: -moz-inline-stack;
   height: 1em;
   margin: 0em;
-  margin-top: -0.5em;
   margin-left: 0.5em;
+  margin-top: -0.5em;
   padding: 0em;
   position: absolute;
   top: 50%;
   zoom: 1;
-  *display: inline;
 }
