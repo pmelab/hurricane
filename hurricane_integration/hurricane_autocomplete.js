@@ -14,11 +14,13 @@
       case 'begin':
         $(this.input).parent().find('.throbber').hurricane('start');
         break;
+
       case 'cancel':
       case 'error':
       case 'found':
         $(this.input).parent().find('.throbber').hurricane('stop');
         break;
+
     }
   };
   /**

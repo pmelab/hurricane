@@ -15,7 +15,6 @@ div.form-managed-file {
 
 div.form-managed-file div.ajax-progress,
 div.form-managed-file div.throbber {
-  *display: inline;
   display: inline-block;
   display: -moz-inline-stack;
   height: 1em;
@@ -26,4 +25,5 @@ div.form-managed-file div.throbber {
   position: absolute;
   top: 50%;
   zoom: 1;
+  *display: inline;
 }
