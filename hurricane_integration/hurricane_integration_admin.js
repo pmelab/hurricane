@@ -135,6 +135,9 @@
             else if (info === true) {
               value = parseInt(value) + 'px';
             }
+            if (!value) {
+              return;
+            }
             css += '  ' + property + ': ' + value + ';\n'
           });
           css += '}';
@@ -148,6 +151,9 @@
           var text = '';
           $.each(Drupal.settings.hurricane.map, function(property, info) {
             var value = $('#edit-hurricane-' + property, context).val();
+            if (!value) {
+              return;
+            }
             text += 'settings[hurricane_' + property + '] = ' + value + '\n';
           });
           return text;
