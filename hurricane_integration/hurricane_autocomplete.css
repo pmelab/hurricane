@@ -5,12 +5,17 @@
 
 .hurricane-autocomplete {
   display: block;
+  position: absolute;
 }
 
 .hurricane-autocomplete .throbber {
   display: block;
-  position: absolute;
   z-index: 5;
+  margin: 0;
+}
+
+.form-item-autocomplete {
+  position: relative;
 }
 
 html.js .form-item input.form-autocomplete {

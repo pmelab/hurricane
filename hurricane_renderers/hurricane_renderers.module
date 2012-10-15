@@ -5,13 +5,38 @@
  */
 
 /**
+ * Implements hook_requirements().
+ */
+function hurricane_renderes_requirements($phase) {
+  $requirements = array();
+  if ($phase == 'runtime' && !file_exists(libraries_get_path('raphael') . '/raphael.js')) {
+    $requirements['hurricane_renderers'] = array(
+      'title' => t('Raphael library not found'),
+      'value' => t('The !raphael javascript library was not found. Please !download it into the libraries folder.', array(
+        '!leaflet' => l(t('Raphael'), 'http://raphaeljs.com'),
+        '!download' => l(t('download'), 'http://raphaeljs.com'),
+      )),
+      'severity' => REQUIREMENT_ERROR,
+    );
+  }
+  return $requirements;
+}
+
+/**
  * Implements hook_hurricane_renderers().
  */
 function hurricane_renderers_hurricane_renderers() {
+  $path = drupal_get_path('module', 'hurricane_renderers');
   return array(
     'hurricane' => array(
       'label' => t('Hurricane'),
-      'file' => drupal_get_path('module', 'hurricane_renderers') . '/hurricane.js',
+      'js' => array(
+        $path . '/hurricane_raphael.js' => array('group' => JS_LIBRARY),
+        $path . '/hurricane.js' => array(),
+      ),
+      'dependencies' => array(
+        array('hurricane_renderers', 'raphael'),
+      ),
       'parameters' => array(
         'color' => array('label' => t('Color'), 'default' => '#3182c5'),
         'letter-spacing' => array('label' => t('Lines'), 'default' => 15),
@@ -24,7 +49,13 @@ function hurricane_renderers_hurricane_renderers() {
     ),
     'twister' => array(
       'label' => t('Twister'),
-      'file' => drupal_get_path('module', 'hurricane_renderers') . '/twister.js',
+      'js' => array(
+        $path . '/hurricane_raphael.js' => array('group' => JS_LIBRARY),
+        $path . '/twister.js' => array(),
+      ),
+      'dependencies' => array(
+        array('hurricane_renderers', 'raphael'),
+      ),
       'parameters' => array(
         'color' => array('label' => t('Active'), 'default' => '#3182c5'),
         'background-color' => array('label' => t('Inactive'), 'default' => '#CCC'),
@@ -36,3 +67,53 @@ function hurricane_renderers_hurricane_renderers() {
     ),
   );
 }
+
+/**
+ * Implements hook_library_info().
+ */
+function hurricane_renderers_library() {
+  $library = array();
+  $library['raphael'] = array(
+    'title' => t('Hurricane Raphael'),
+    'website' => '',
+    'version' => '0.1',
+    'js' => array(
+      libraries_get_path('raphael') . '/raphael.js' => array(),
+    ),
+  );
+  return $library;
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function hurricane_libraries_info() {
+  $libraries = array(
+    'raphael' => array(
+      'name' => 'Raphaël',
+      'vendor url' => 'http://raphaeljs.com/',
+      'download url' => 'http://raphaeljs.com/',
+      'version arguments' => array(
+        'file' => 'history.md',
+        'pattern' => '/^([0-9a-zA-Z.-]+)\ /',
+      ),
+      'files' => array(
+        'js' => array(
+          'raphael.js' => array(
+            'group' => JS_LIBRARY,
+            'weight' => -100,
+          ),
+        ),
+      ),
+      'variants' => array(
+        'minified' => array(
+          'js' => array(
+            'raphael-min.js',
+          ),
+        ),
+      ),
+    ),
+  );
+  return $libraries;
+}
+

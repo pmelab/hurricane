@@ -2,44 +2,79 @@
  * @file
  * Provides Hurricane default renderer "drop".
  */
+(function($){
+  $.hurricane.drop = $.hurricane.base.extend({
+    destroy: function() {
+      this.$el.children().remove();
+    },
+    setup: function(options) {
+      this.$dot = $('<div></div>').css({
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        width: this.$el.width(),
+        height: this.$el.height()
+      });
+      this.$el.append(this.$dot);
+      this.stopped = true;
+      this.speed = 15000 / options['word-spacing'];
+      this.active  = this.rgb2hex(options['color']);
+      this.inactive  = this.rgb2hex(options['background-color']);
+      var radius = this.$dot.width()/2;
+      var speed = this.speed/1000;
+      var css = {
+        'background-color': this.inactive
+      };
+      $.each(['', '-webkit-', '-moz-', '-ms-', '-o-'], function(index, prefix){
+        css[prefix + 'border-radius'] = radius + 'px';
+        css[prefix + 'transition'] = 'background-color ' + speed + 's ease';
+      });
+      this.$dot.css(css);
+    },
 
-jQuery.hurricane.drop = function (paper, options, s) {
-  var circle = paper.circle(64, 64, 16 + 48 * options['line-height'] / 100).attr({
-    stroke:'none',
-    fill:options['background-color'],
-    opacity:parseFloat(options['font-weight']) / 10
+    rgb2hex: function (rgb) {
+      var match = rgb.match(/^rgb[a?]\((\d+),\s*(\d+),\s*(\d+)\)$/);
+      if (!match) {
+        return rgb;
+      }
+      function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+      }
+      return "#" + hex(match[1]) + hex(match[2]) + hex(match[3]);
+    },
+
+    pulseUp: function () {
+      if (this.stopped) {
+        return;
+      }
+      var that = this;
+      this.$dot.css({
+        'background-color': this.active
+      });
+      window.setTimeout(function(){
+        that.pulseDown();
+      }, this.speed);
+    },
+
+    pulseDown: function () {
+      var that = this;
+      this.$dot.css({
+        'background-color': this.inactive
+      });
+      window.setTimeout(function(){
+        that.pulseUp();
+      }, this.speed);
+    },
+
+    start: function () {
+      if (this.stopped) {
+        this.stopped = false;
+        this.pulseUp();
+      }
+    },
+
+    stop: function () {
+      this.stopped = true;
+    }
   });
-  var stopped = true;
-  var speed = 12500 / options['word-spacing'];
-  var pulseUp = function () {
-    if (stopped) {
-      circle.animate({
-        fill:options['background-color']
-      }, speed, '<>');
-      return;
-    }
-    circle.animate({
-      fill:options['color'],
-      opacity:1
-    }, speed, '<>', pulseDown);
-  };
-
-  var pulseDown = function () {
-    var me = this;
-    circle.animate({
-      opacity:options['font-weight'] / 10
-    }, speed, '<>', pulseUp);
-  };
-
-  this.start = function () {
-    if (stopped) {
-      stopped = false;
-      pulseUp();
-    }
-  };
-
-  this.stop = function () {
-    stopped = true;
-  };
-  return this;
-};
+}(jQuery));

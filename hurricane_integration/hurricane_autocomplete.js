@@ -23,6 +23,21 @@
 
     }
   };
+
+  /**
+   * Retreive an elements property as float value.
+   * @param el
+   * @param prop
+   * @return {Number}
+   */
+  function pixels(el, prop) {
+    var value = parseFloat($(el).css(prop));
+    if (isNaN(value)) {
+      value = 0;
+    }
+    return value;
+  }
+
   /**
    * Attach throbbers to autocomplete textfields.
    */
@@ -33,17 +48,33 @@
         var count_fields = $('input.form-autocomplete', context).length;
         var check = window.setInterval(function() {
           $('input.form-autocomplete:visible', context).once('hurricane-autocomplete', function() {
-            var height = $(this).height();
-            var width = $(this).width();
-            var top = parseInt($(this).css('margin-top')) + parseInt($(this).css('border-top-width')) + parseInt($(this).css('padding-top'));
-            var left = parseInt($(this).css('margin-left')) + parseInt($(this).css('border-left-width')) + parseInt($(this).css('padding-left')) + $(this).width() - height;
+
+            var size = $(this).height();
+            var pos = $(this).position();
+
+            var top = pos.top
+                + pixels(this, 'margin-top')
+                + pixels(this, 'border-top-width')
+                + pixels(this, 'padding-top');
+            var left = pos.left
+                + pixels(this, 'margin-left')
+                + $(this).outerWidth()
+                - $(this).height()
+                - pixels(this, 'border-right-width')
+                - pixels(this, 'padding-right');
+
             $wrapper = $('<div class="hurricane-autocomplete ajax-progress"><div class="throbber"></div></div>');
+            $wrapper.css({
+              height: size,
+              width: size,
+              top: top,
+              left: left
+            });
+
             $throbber = $('.throbber', $wrapper);
             $throbber.css({
-              'width': height + 'px',
-              'height': height + 'px',
-              'margin-top': top + 'px',
-              'margin-left': left + 'px'
+              width: size,
+              height: size
             });
             $(this).before($wrapper);
             $throbber.hurricane();

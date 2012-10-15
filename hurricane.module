@@ -5,70 +5,52 @@
  */
 
 /**
- * Implements hook_init().
+ * Implements hook_library().
  */
-function hurricane_init() {
-  $raphael = libraries_load('raphael');
-  if (empty($raphael['loaded'])) {
-    drupal_set_message(t('Raphaël library not found.'), 'error');
-    return;
-  }
+function hurricane_library() {
+  $library = array();
+  $path = drupal_get_path('module', 'hurricane');
+
   $renderers = hurricane_renderers();
   $font_face = '';
   foreach (array_keys(hurricane_renderers()) as $font) {
     $font_face .= '@font-face{font-family:\'' . $font . '\';src:local(Arial),local(Droid);}';
   }
-  drupal_add_css($font_face, array('type' => 'inline'));
-  drupal_add_js(array(
-    'hurricane' => array(
-      'map' => _hurricane_property_map(),
-    ),
-  ), array('type' => 'setting'));
 
-  drupal_add_js(drupal_get_path('module', 'hurricane') . '/hurricane.js');
+  $library['hurricane'] = array(
+    'title' => t('Hurricane'),
+    'website' => '',
+    'version' => '0.1',
+    'js' => array(
+      0 => array(
+        'type' => 'setting',
+        'data' => array('hurricane' => array('map' => _hurricane_property_map())),
+      ),
+      $path . '/hurricane.js' => array(),
+    ),
+    'css' => array(
+      $font_face => array('type' => 'inline'),
+    ),
+  );
 
   global $theme;
   $enabled_renderers = theme_get_setting('hurricane_renderers', $theme);
   if ($enabled_renderers) {
     foreach ($renderers as $id => $info) {
       if (in_array($id, $enabled_renderers)) {
-        drupal_add_js($info['file']);
+        foreach (array('js', 'css', 'dependencies') as $type) {
+          if (array_key_exists($type, $info)) {
+            if (!array_key_exists($type, $library['hurricane'])) {
+              $library['hurricane'][$type] = array();
+            }
+            $library['hurricane'][$type] = array_merge($library['hurricane'][$type], $info[$type]);
+          }
+        }
       }
     }
   }
-}
 
-/**
- * Implements hook_libraries_info().
- */
-function hurricane_libraries_info() {
-  $libraries = array(
-    'raphael' => array(
-      'name' => 'Raphaël',
-      'vendor url' => 'http://raphaeljs.com/',
-      'download url' => 'http://raphaeljs.com/',
-      'version arguments' => array(
-        'file' => 'history.md',
-        'pattern' => '/^([0-9a-zA-Z.-]+)\ /',
-      ),
-      'files' => array(
-        'js' => array(
-          'raphael.js' => array(
-            'group' => JS_LIBRARY,
-            'weight' => -100,
-          ),
-        ),
-      ),
-      'variants' => array(
-        'minified' => array(
-          'js' => array(
-            'raphael-min.js',
-          ),
-        ),
-      ),
-    ),
-  );
-  return $libraries;
+  return $library;
 }
 
 /**
@@ -90,12 +72,12 @@ function hurricane_hurricane_renderers() {
   return array(
     'drop' => array(
       'label' => t('Drop'),
-      'file' => drupal_get_path('module', 'hurricane') . '/drop.js',
+      'js' => array(
+        drupal_get_path('module', 'hurricane') . '/drop.js' => array(),
+      ),
       'parameters' => array(
-        'line-height' => array('label' => t('Size'), 'default' => 100),
         'color' => array('label' => t('Active'), 'default' => '#3182c5'),
-        'background-color' => array('label' => t('Inactive'), 'default' => '#000000'),
-        'font-weight' => array('label' => t('Opacity'), 'default' => 3),
+        'background-color' => array('label' => t('Inactive'), 'default' => '#CCCCCC'),
         'word-spacing' => array('label' => t('Speed'), 'default' => 30),
       ),
     ),

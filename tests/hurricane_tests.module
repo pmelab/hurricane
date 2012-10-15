@@ -41,6 +41,7 @@ function hurricane_tests_page($form, $form_state) {
     '#type' => 'textfield',
     '#title' => t('Autocomplete me!'),
     '#autocomplete_path' => 'hurricane/autocomplete',
+    '#size' => 10,
   );
   $form['big'] = array(
     '#markup' => '<div class="ajax-progress hurricane-test-throbber"><div class="throbber"></div></div>',

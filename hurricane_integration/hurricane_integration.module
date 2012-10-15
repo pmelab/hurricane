@@ -4,7 +4,6 @@
  * Hurricane drupal integration.
  */
 
-
 /**
  * Implements hook_library_alter().
  *
@@ -13,6 +12,8 @@
  */
 function hurricane_library_alter(&$libraries, $module) {
   global $theme;
+  $path = drupal_get_path('module', 'hurricane_integration');
+
   $settings = hurricane_integration_get_settings($theme);
   $css = '.ajax-progress div.throbber { ';
   foreach ($settings as $property => $value) {
@@ -22,7 +23,6 @@ function hurricane_library_alter(&$libraries, $module) {
     }
   }
   $css .= " }";
-  $path = drupal_get_path('module', 'hurricane_integration');
   if (array_key_exists('drupal.ajax', $libraries)) {
     $ajax_js = $path . '/hurricane_ajax.js';
     $ajax_css = $path . '/hurricane_ajax.css';
@@ -32,6 +32,7 @@ function hurricane_library_alter(&$libraries, $module) {
     );
     $libraries['drupal.ajax']['css'][$css] = array('type' => 'inline');
     $libraries['drupal.ajax']['css'][$ajax_css] = array();
+    $libraries['drupal.ajax']['dependencies'][] = array('hurricane', 'hurricane');
   }
 
   if (array_key_exists('drupal.autocomplete', $libraries)) {
@@ -44,6 +45,7 @@ function hurricane_library_alter(&$libraries, $module) {
     );
     $libraries['drupal.autocomplete']['css'][$css] = array('type' => 'inline');
     $libraries['drupal.autocomplete']['css'][$autocomplete_css] = array();
+    $libraries['drupal.ajax']['dependencies'][] = array('hurricane', 'hurricane');
   }
 }
 
@@ -138,11 +140,24 @@ function hurricane_integration_form_system_theme_settings_alter(&$form, &$form_s
   $renderers = hurricane_renderers();
   $options = array();
   $parameters = array();
+  if (!array_key_exists('#attached', $form)) {
+    $form['#attached'] = array(
+      'js' => array(),
+      'css' => array(),
+      'library' => array(),
+    );
+  }
+  $form['#attached']['library'][] = array('hurricane', 'hurricane');
   foreach ($renderers as $id => $info) {
     if (array_key_exists($id, $enabled_renderers)) {
       $parameters[$id] = $info['parameters'];
       $options[$id] = $info['label'];
-      drupal_add_js($info['file']);
+      foreach (array('js', 'css', 'dependencies') as $type) {
+        if (array_key_exists($type, $info)) {
+          $key = ($type == 'dependencies') ? 'library' : $type;
+          $form['#attached'][$key] = array_merge($form['#attached'][$key], $info[$type]);
+        }
+      }
     }
   }
 
