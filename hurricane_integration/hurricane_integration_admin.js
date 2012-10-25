@@ -125,6 +125,9 @@
         var generateCSS = function () {
           var css = '.ajax-progress div.throbber {\n';
           $.each(Drupal.settings.hurricane.map, function(property, info) {
+            if (!$('#edit-hurricane-' + property).is(':visible')) {
+              return;
+            }
             var value = $('#edit-hurricane-' + property, context).val();
             if (typeof info === 'object' && property !== 'font-family') {
               value = Drupal.settings.hurricane.map[property][value];

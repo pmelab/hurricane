@@ -10,8 +10,10 @@
       var height = $(el).height();
       var size = Math.min(width, height);
       this.paper = Raphael(el, size, size);
-      this.paper.setViewBox(0, 0, 128, 128, true);
       $(this.paper.canvas).css('position', 'absolute');
+    },
+    setup: function(options) {
+      this.paper.setViewBox(0, 0, 128, 128, true);
     },
     destroy: function() {
       this.paper.remove();

@@ -45,6 +45,7 @@
 
       this.stopped = true;
       this.direction = false;
+      this._super(options);
     },
 
     tick: function() {

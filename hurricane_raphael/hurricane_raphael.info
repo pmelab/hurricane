@@ -1,0 +1,5 @@
+name = "Hurricane Raphael"
+description = Raphael renderers for Hurricane.
+core = "7.x"
+package = "user interface"
+dependencies[] = hurricane
