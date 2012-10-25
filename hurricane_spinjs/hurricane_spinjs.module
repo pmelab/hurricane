@@ -9,11 +9,21 @@
  */
 function hurricane_spinjs_hurricane_renderers() {
   $path = drupal_get_path('module', 'hurricane_spinjs');
+  $spinjs = libraries_get_path('spinjs');
+  if (!file_exists($path . '/spinjs.js')) {
+    $msg = t('!lib library is not installed. Please !download and copy it into !folder and clear all caches.', array(
+      '!lib' => l(t('Spin.js'), 'http://fgnass.github.com/spin.js/'),
+      '!download' => l(t('download'), 'http://fgnass.github.com/spin.js/'),
+      '!folder' => l(t('a libraries compliant folder'), 'http://drupal.org/node/1440066'),
+    ));
+    drupal_set_message($msg, 'error');
+    return array();
+  }
   return array(
     'spinjs' => array(
       'label' => t('Spin.js'),
       'js' => array(
-        $path . '/spin.js' => array('group' => JS_LIBRARY),
+        $spinjs . '/spin.js' => array('group' => JS_LIBRARY),
         $path . '/spinjs.js' => array(),
       ),
       'parameters' => array(

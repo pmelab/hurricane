@@ -55,12 +55,22 @@ function hurricane_raphael_hurricane_renderers() {
  */
 function hurricane_raphael_library() {
   $library = array();
+  $path = libraries_get_path('raphael');
+  if (!file_exists($path . '/raphael.js')) {
+    $msg = t('!lib library is not installed. Please !download and copy it into !folder and clear all caches.', array(
+      '!lib' => l(t('Raphaël'), 'http://raphaeljs.com/'),
+      '!download' => l(t('download'), 'http://raphaeljs.com/'),
+      '!folder' => l(t('a libraries compliant folder'), 'http://drupal.org/node/1440066'),
+    ));
+    drupal_set_message($msg, 'error');
+    return array();
+  }
   $library['raphael'] = array(
     'title' => t('Hurricane Raphael'),
     'website' => '',
     'version' => '0.1',
     'js' => array(
-      libraries_get_path('raphael') . '/raphael.js' => array(),
+      $path . '/raphael.js' => array(),
     ),
   );
   return $library;

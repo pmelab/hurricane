@@ -2,4 +2,4 @@ name = "Hurricane"
 description = Raphael based loading indicators.
 core = "7.x"
 package = "user interface"
-dependencies[] = libraries
+

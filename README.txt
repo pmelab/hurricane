@@ -26,8 +26,7 @@ Raphael based SVG/VML renderers. Requires [Rapahel](http://raphaeljs.com/)
 library to be installed in a libraries compliant subfolder.
 
 ### hurricane_spinjs
-Raphael based SVG/VML renderers. Requires [Rapahel](http://raphaeljs.com/)
-library to be installed in a libraries compliant subfolder.
+Renderer based on [Spin.js](http://fgnass.github.com/spin.js/).
 
 ### hurricane_tests
 A test page to display hurricane renderers configured in a theme.
