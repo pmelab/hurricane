@@ -52,16 +52,8 @@
             var size = $(this).height();
             var pos = $(this).position();
 
-            var top = pos.top
-                + pixels(this, 'margin-top')
-                + pixels(this, 'border-top-width')
-                + pixels(this, 'padding-top');
-            var left = pos.left
-                + pixels(this, 'margin-left')
-                + $(this).outerWidth()
-                - $(this).height()
-                - pixels(this, 'border-right-width')
-                - pixels(this, 'padding-right');
+            var top = pos.top + pixels(this, 'margin-top') + pixels(this, 'border-top-width') + pixels(this, 'padding-top');
+            var left = pos.left + pixels(this, 'margin-left') + $(this).outerWidth() - $(this).height() - pixels(this, 'border-right-width') - pixels(this, 'padding-right');
 
             $wrapper = $('<div class="hurricane-autocomplete ajax-progress"><div class="throbber"></div></div>');
             $wrapper.css({

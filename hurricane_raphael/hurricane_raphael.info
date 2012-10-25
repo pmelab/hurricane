@@ -4,4 +4,3 @@ core = "7.x"
 package = "user interface"
 dependencies[] = hurricane
 dependencies[] = libraries
-

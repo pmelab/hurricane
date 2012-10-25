@@ -10,8 +10,8 @@
 
 .hurricane-autocomplete .throbber {
   display: block;
-  z-index: 5;
   margin: 0;
+  z-index: 5;
 }
 
 .form-item-autocomplete {

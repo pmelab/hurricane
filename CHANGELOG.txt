@@ -16,4 +16,3 @@
 2012-10-08: Initial Release
 ---------------------------
 - Basic functionality, additional renderers and CSS injection done.
-

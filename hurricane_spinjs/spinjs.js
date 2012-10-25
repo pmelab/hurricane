@@ -10,21 +10,21 @@
       var thickness = length * options['font-size'] / 100;
       this.speed = options['word-spacing'] / 25;
       this.opts = {
-        lines: options['letter-spacing'], // The number of lines to draw
-        length: length - thickness, // The length of each line
-        width: thickness, // The line thickness
-        radius: radius * (1 - options['line-height'] / 100), // The radius of the inner circle
-        corners: options['text-indent'] / 100, // Corner roundness (0..1)
-        rotate: 0, // The rotation offset
-        color: options['color'], // #rgb or #rrggbb
-        speed: 0, // Rounds per second
-        trail: options['font-weight'] * 10, // Afterglow percentage
-        shadow: options['text-decoration'] > 1, // Whether to render a shadow
-        hwaccel: options['text-decoration'] > 2, // Whether to use hardware acceleration
-        className: 'spinner', // The CSS class to assign to the spinner
-        zIndex: 0, // The z-index (defaults to 2000000000)
-        top: 'auto', // Top position relative to parent in px
-        left: 'auto' // Left position relative to parent in px
+        lines: options['letter-spacing'],
+        length: length - thickness,
+        width: thickness,
+        radius: radius * (1 - options['line-height'] / 100),
+        corners: options['text-indent'] / 100,
+        rotate: 0,
+        color: options['color'],
+        speed: 0,
+        trail: options['font-weight'] * 10,
+        shadow: options['text-decoration'] > 1,
+        hwaccel: options['text-decoration'] > 2,
+        className: 'spinner',
+        zIndex: 0,
+        top: 'auto',
+        left: 'auto'
       };
       this.spinner = new Spinner(this.opts).spin(this.$el[0]);
     },

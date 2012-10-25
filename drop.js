@@ -20,8 +20,8 @@
       this.speed = 15000 / options['word-spacing'];
       this.active  = this.rgb2hex(options['color']);
       this.inactive  = this.rgb2hex(options['background-color']);
-      var radius = this.$dot.width()/2;
-      var speed = this.speed/1000;
+      var radius = this.$dot.width() / 2;
+      var speed = this.speed / 1000;
       var css = {
         'background-color': this.inactive
       };
