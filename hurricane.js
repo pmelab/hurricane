@@ -10,7 +10,7 @@
 // Inspired by base2 and Prototype
 (function(){
   var initializing = false;
-  var fnTest = new Regex("/xyz/").test(function(){xyz;}) ? new Regex("/\b_super\b/") : new Regex("/.*/");
+  var fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
   // The base Class implementation (does nothing)
   this.Class = function(){};
 
