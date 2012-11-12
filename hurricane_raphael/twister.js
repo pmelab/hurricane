@@ -45,7 +45,7 @@
 
       this.stopped = true;
       this.direction = false;
-      this._super(options);
+      this.callParent(options);
     },
 
     tick: function() {

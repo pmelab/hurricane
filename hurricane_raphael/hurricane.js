@@ -30,7 +30,7 @@
       this.speed = 1000 / ((options['word-spacing'] / 25) * options['letter-spacing']);
       this.round = 0;
       this.stopped = true;
-      this._super(options);
+      this.callParent(options);
     },
 
     tick: function() {

@@ -3,89 +3,48 @@
  * Hurricane jquery plugin.
  */
 
-/* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
- * MIT Licensed.
- */
-// Inspired by base2 and Prototype
-(function(){
-  var initializing = false;
-  var fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
-  // The base Class implementation (does nothing)
-  this.Class = function(){};
-
-  // Create a new Class that inherits from this class
-  Class.extend = function(prop) {
-    var _super = this.prototype;
-
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
-    initializing = true;
-    var prototype = new this();
-    initializing = false;
-
-    // Copy the properties over onto the new prototype
-    for (var name in prop) {
-      // Check if we're overwriting an existing function
-      prototype[name] = typeof prop[name] == "function" &&
-          typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-          (function(name, fn){
-            return function() {
-              var tmp = this._super;
-
-              // Add a new ._super() method that is the same method
-              // but on the super-class
-              this._super = _super[name];
-
-              // The method only need to be bound temporarily, so we
-              // remove it when we're done executing
-              var ret = fn.apply(this, arguments);
-              this._super = tmp;
-
-              return ret;
-            };
-          })(name, prop[name]) :
-          prop[name];
-    }
-
-    // The dummy class constructor
-    function Class() {
-      // All construction is actually done in the init method
-      if (!initializing && this.init) {
-        this.init.apply(this, arguments);
-      }
-    }
-
-    // Populate our constructed prototype object
-    Class.prototype = prototype;
-
-    // Enforce the constructor to be what we expect
-    Class.prototype.constructor = Class;
-
-    // And make this class extendable
-    Class.extend = arguments.callee;
-
-    return Class;
-  };
-})();
-
 /**
  * Hurricane jQuery Plugin.
  */
 (function($) {
   // available renderers
   $.hurricane = {};
+  var initializing = false;
 
-  // Interface definition for hurricane renderers
-  $.hurricane.base = Class.extend({
-    init: function (element) {
-      this.$el = $(element);
-    },
-    destroy: function () {},
-    setup: function (parameters) {},
-    start: function() {},
-    stop: function() {}
-  });
+  // Hurricane Base Class
+  $.hurricane.base = function(){};
+  $.hurricane.base.extend = function(prop) {
+    var parent = this.prototype;
+    initializing = true;
+    var prototype = new this();
+    initializing = false;
+    for (var name in prop) {
+      if (typeof prop[name] == 'function' && typeof parent[name] == 'function') {
+        prototype[name] = (function(name, fn){
+            return function() {
+              var tmp = this.callParent;
+              this.callParent = parent[name];
+              var ret = fn.apply(this, arguments);
+              this.callParent = tmp;
+
+              return ret;
+            };
+          }(name, prop[name]));
+      }
+      else {
+        prototype[name] = prop[name];
+      }
+    }
+    function Base() {
+      if (!initializing && this.init) {
+        this.init.apply(this, arguments);
+      }
+    }
+    Base.prototype = prototype;
+    Base.prototype.constructor = Base;
+    Base.extend = arguments.callee;
+    return Base;
+  };
 
   /**
    * Retrieve a specific renderer.
