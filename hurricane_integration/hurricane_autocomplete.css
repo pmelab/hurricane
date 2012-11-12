@@ -14,10 +14,6 @@
   z-index: 5;
 }
 
-.form-item-autocomplete {
-  position: relative;
-}
-
 html.js .form-item input.form-autocomplete {
   background-image: none;
 }

@@ -48,7 +48,9 @@
         var count_fields = $('input.form-autocomplete', context).length;
         var check = window.setInterval(function() {
           $('input.form-autocomplete:visible', context).once('hurricane-autocomplete', function() {
-
+            if ($(this).parent().css('position') == 'static') {
+              $(this).parent().css('position', 'relative');
+            }
             var size = $(this).height();
             var pos = $(this).position();
 

@@ -4,6 +4,9 @@
  */
 (function($){
   $.hurricane.drop = $.hurricane.base.extend({
+    init: function (element) {
+      this.$el = $(element);
+    },
     destroy: function() {
       this.$el.children().remove();
     },
