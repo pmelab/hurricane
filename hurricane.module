@@ -27,7 +27,6 @@ function hurricane_library() {
         'data' => array('hurricane' => array('map' => _hurricane_property_map())),
       ),
       $path . '/hurricane.js' => array(),
-      $path . '/drop.js' => array(),
     ),
     'css' => array(
       $font_face => array('type' => 'inline'),
@@ -36,6 +35,9 @@ function hurricane_library() {
 
   global $theme;
   $enabled_renderers = theme_get_setting('hurricane_renderers', $theme);
+  if (!$enabled_renderers) {
+    $enabled_renderers = array('drop' => 'drop');
+  }
   if ($enabled_renderers) {
     foreach ($renderers as $id => $info) {
       if (in_array($id, $enabled_renderers)) {
