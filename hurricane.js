@@ -137,6 +137,9 @@
         // Retrieve the renderer class based on font-family property.
         var font = $(this).css('font-family');
         var renderer = $.hurricaneRenderer(font);
+        if (!renderer) {
+          return;
+        }
         var options = {};
 
         // Iterate over all readable properties and write them normalized to

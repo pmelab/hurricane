@@ -27,6 +27,7 @@ function hurricane_library() {
         'data' => array('hurricane' => array('map' => _hurricane_property_map())),
       ),
       $path . '/hurricane.js' => array(),
+      $path . '/drop.js' => array(),
     ),
     'css' => array(
       $font_face => array('type' => 'inline'),
