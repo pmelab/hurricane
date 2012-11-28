@@ -23,6 +23,30 @@ which may be activated independently:
 - **hurricane_tests:** A test page `hurricane/test` which displays hurricane
   renderers configured in a theme.
 
+### Libraries
+Hurricane may use [Raphaël][raphael] or [Spin.js][spinjs] to draw more
+sophisticated throbber animations. They are both optional, but if you want to
+try out Hurricane, you want them both. For production you will use either one of
+them or a custom renderer you write yourself.
+
+Download [raphael-min.js][raphaelmin] and place it in a `raphael` subdirectory
+in any of these libraries folders.
+
+    sites/all/libraries/raphael/raphael-min.js
+    sites/[mydomain.com]/libraries/raphael/raphael-min.js
+    profiles/[myprofile]/libraries/raphael/raphael-min.js
+
+There is a [raphael module][raphmod] for drupal, which has not been updated for
+a long time and is currently not compatible with hurricane. I'm looking for a
+way to fix this.
+
+For using [Spin.js][spinjs], download [spin.js][spinjsmin] and place it in
+a `spinjs` libraries folder.
+
+    sites/all/libraries/spinjs/spin.js
+    sites/[mydomain.com]/libraries/spinjs/spin.js
+    profiles/[myprofile]/libraries/spinjs/spin.js
+
 ## Usage
 Activate `hurricane`, `hurricane_integration` and `hurricane_raphael` /
 `hurricane_spinjs`, navigate to your theme's settings page and configure
@@ -140,7 +164,10 @@ look at `hurricane/drop.js` or `hurricane/hurricane_raphael/hurricane.js`.
 and sponsored by [Zensations - web & communcations][zen].*
 
 [spinjs]: http://fgnass.github.com/spin.js/ "Spin.js"
+[spinjsmin]: http://fgnass.github.com/spin.js/dist/spin.js "Spin.js Source"
 [raphael]: http://raphaeljs.com/ "Raphaël"
+[raphaelmin]: http://tinyurl.com/bwp4wam "Raphaël Source"
+[raphmod]: http://drupal.org/project/raphael "Raphaël module on drupal.org"
 [zen]: http://www.zensations.at "Zensations - web & communications"
 [pm]: http://drupal.org/user/555322 "User Profile: Philipp Melab"
 [attached]: http://tinyurl.com/cxzn4cp "Drupal Form API Reference: #attached"

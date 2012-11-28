@@ -70,7 +70,7 @@ function hurricane_raphael_library() {
     'website' => '',
     'version' => '0.1',
     'js' => array(
-      $path . '/raphael.js' => array(
+      $path . '/raphael-min.js' => array(
         'group' => JS_LIBRARY,
         'weight' => -100,
       ),
