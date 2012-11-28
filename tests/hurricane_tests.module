@@ -29,22 +29,16 @@ function hurricane_tests_menu() {
  * Hurricane test page.
  */
 function hurricane_tests_page($form, $form_state) {
+  global $theme_key;
+  $settings = hurricane_default_settings();
+
   if (count(hurricane_renderers()) < 2) {
-    $path = drupal_get_path('module', 'hurricane');
-    $message = implode('', array(
-      'Looks boring? You did not activate any additional renderers.',
-      'Got to your !modules page and active <em>hurricane_raphael</em> and',
-      '<em>hurricane_spinjs</em>. For further instructions have a look at the',
-      '<em>Installation</em> section in !readme.',
-    ));
-    drupal_set_message(t($message, array(
+    drupal_set_message(t('Looks boring? You did not activate any additional renderers. Go to your !modules page and active <em>hurricane_raphael</em> and <em>hurricane_spinjs</em>. For further instructions have a look at the<em>Installation</em> section in !readme.', array(
       '!modules' => l(t('modules'), 'admin/modules'),
-      '!readme' => l(t('README.txt'), $path . '/README.txt'),
+      '!readme' => l(t('README.txt'), drupal_get_path('module', 'hurricane') . '/README.txt'),
     )), 'warning');
   }
 
-  global $theme_key;
-  $settings = hurricane_default_settings();
   $configured = FALSE;
   foreach (array_keys($settings) as $key) {
     $value  = theme_get_setting('hurricane_' . $key, $theme_key);
@@ -54,14 +48,8 @@ function hurricane_tests_page($form, $form_state) {
   }
 
   if (!$configured) {
-    $path = 'admin/appearance/settings/' . $theme_key;
-    $message = implode('', array(
-      'You did not configure Hurricane in your current theme.',
-      'Go to your !settings and have a look at the',
-      '<em>Hurricane</em> sections.',
-    ));
-    drupal_set_message(t($message, array(
-      '!settings' => l(t('themes settings page'), $path),
+    drupal_set_message(t('You did not configure Hurricane in your current theme. Go to your !settings and have a look at the <em>Hurricane</em> sections.', array(
+      '!settings' => l(t('themes settings page'), 'admin/appearance/settings/' . $theme_key),
     )), 'warning');
   }
 
