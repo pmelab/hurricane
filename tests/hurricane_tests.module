@@ -30,9 +30,16 @@ function hurricane_tests_menu() {
  */
 function hurricane_tests_page($form, $form_state) {
   if (count(hurricane_renderers()) < 2) {
-    drupal_set_message(t('Looks boring? You did not activate any additional renderers. Got to your !modules page and active <em>hurricane_raphael</em> and <em>hurricane_spinjs</em>. For further instructions have a look at the <em>Installation</em> section in !readme.', array(
+    $path = drupal_get_path('module', 'hurricane');
+    $message = implode('', array(
+      'Looks boring? You did not activate any additional renderers.',
+      'Got to your !modules page and active <em>hurricane_raphael</em> and',
+      '<em>hurricane_spinjs</em>. For further instructions have a look at the',
+      '<em>Installation</em> section in !readme.',
+    ));
+    drupal_set_message(t($message, array(
       '!modules' => l(t('modules'), 'admin/modules'),
-      '!readme' => l(t('README.txt'), drupal_get_path('module', 'hurricane') . '/README.txt'),
+      '!readme' => l(t('README.txt'), $path . '/README.txt'),
     )), 'warning');
   }
 
@@ -40,15 +47,21 @@ function hurricane_tests_page($form, $form_state) {
   $settings = hurricane_default_settings();
   $configured = FALSE;
   foreach (array_keys($settings) as $key) {
-    $value  = theme_get_setting('hurricane_' . $key, $theme);
+    $value  = theme_get_setting('hurricane_' . $key, $theme_key);
     if ($value) {
       $configured = TRUE;
     }
   }
 
   if (!$configured) {
-    drupal_set_message(t('You did not configure Hurricane in your current theme. Go to your !settings and have a look at the <em>Hurricane</em> sections.', array(
-      '!settings' => l(t('themes settings page'), 'admin/appearance/settings/' . $theme_key),
+    $path = 'admin/appearance/settings/' . $theme_key;
+    $message = implode('', array(
+      'You did not configure Hurricane in your current theme.',
+      'Go to your !settings and have a look at the',
+      '<em>Hurricane</em> sections.',
+    ));
+    drupal_set_message(t($message, array(
+      '!settings' => l(t('themes settings page'), $path),
     )), 'warning');
   }
 
@@ -69,7 +82,11 @@ function hurricane_tests_page($form, $form_state) {
     '#size' => 10,
   );
   $form['big'] = array(
-    '#markup' => '<div class="ajax-progress hurricane-test-throbber"><div class="throbber"></div></div>',
+    '#markup' => implode('', array(
+        '<div class="ajax-progress hurricane-test-throbber">',
+        '<div class="throbber"></div>',
+        '</div>',
+      )),
   );
   $form['#attached'] = array(
     'js' => array(
