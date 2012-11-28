@@ -31,6 +31,25 @@ group appears, where the appearance of the standard renderer may be configured.
 Renderers may be styled independently in the CSS sheet. A CSS-Snippet is
 generated on the fly in the appearance configurations *"Export"* group.
 
+### Included renderers
+Hurricane uses replacable plugins, called *renderers*, to draw the animated
+throbber. `hurricane` itself provides the *Drop*, a simple pulsating CSS3 dot.
+Nothing fancy.
+
+With `hurricane_raphael` the *Hurricane* and *Twister* renderers are
+enabled. Additionally it includes a new class for [Raphaël][raphael] based
+renderers for you to build upon.
+[Raphaël][raphael] is quite big (31Kb gzipped), and if you don't use it in your
+project anyway, the throbbers alone may not justify the additional filesize.
+Your choice.
+
+`hurricane_spinjs` uses the [Spin.js][spinjs] library to provide a throbber
+called *Spin.js*, similiar to the *Hurricane* included in `hurricane_raphael`.
+Far more lightweight, but less fancy.
+
+I'm planning to add more renderer animations out of the box. Suggestions are
+welcome!
+
 ## Extend
 To add a completely new renderer, a module has to implement
 `hook_hurricane_renderers()`, which returns an array of machine readable
