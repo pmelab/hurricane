@@ -1,6 +1,6 @@
 name = "Hurricane Spin.js"
 description = Use Spin.js with Hurricane.
 core = "7.x"
-package = "user interface"
+package = "User interface"
 dependencies[] = hurricane
 dependencies[] = libraries
