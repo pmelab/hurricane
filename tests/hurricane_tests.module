@@ -13,13 +13,13 @@ function hurricane_tests_menu() {
       'title' => 'Hurricane tests',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('hurricane_tests_page'),
-      'access callback' => TRUE,
+      'access arguments' => array('administer themes'),
       'type' => MENU_CALLBACK,
     ),
     'hurricane/autocomplete' => array(
       'title' => 'Hurricane dummy autocomplete',
       'page callback' => 'hurricane_tests_autocomplete',
-      'access callback' => TRUE,
+      'access arguments' => array('administer themes'),
       'type' => MENU_CALLBACK,
     ),
   );
