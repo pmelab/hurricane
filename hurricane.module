@@ -69,7 +69,7 @@ function hurricane_renderers() {
 }
 
 /**
- * Implemenents hook_hurricane_renderers().
+ * Implements hook_hurricane_renderers().
  */
 function hurricane_hurricane_renderers() {
   return array(
