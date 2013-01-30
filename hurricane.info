@@ -1,4 +1,4 @@
 name = "Hurricane"
-description = Raphael based loading indicators.
+description = Extendable and CSS styleable AJAX progress indicators.
 core = "7.x"
 package = "User interface"

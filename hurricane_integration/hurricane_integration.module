@@ -149,7 +149,7 @@ function hurricane_integration_form_system_theme_settings_alter(&$form, &$form_s
   }
   $form['#attached']['library'][] = array('hurricane', 'hurricane');
   foreach ($renderers as $id => $info) {
-    if (array_key_exists($id, $enabled_renderers)) {
+    if (array_key_exists($id, $enabled_renderers) && $enabled_renderers[$id]) {
       $parameters[$id] = $info['parameters'];
       $options[$id] = $info['label'];
       foreach (array('js', 'css', 'dependencies') as $type) {

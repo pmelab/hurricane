@@ -15,7 +15,9 @@ which may be activated independently:
   Required by all other modules.
 - **hurricane_integration:** Deeper integration of hurricane into Drupal.
   Automatically replaces Drupal Ajax throbbers with hurricane and provides theme
-  settings.
+  settings. *Without this module, you won't see any throbbers unless you attach
+  them manually, by using the `$.hurricane()` jQuery plugin in your javascript
+  code!*
 - **hurricane_raphael:** [Raphaël][raphael] based SVG/VML renderers. Requires
   [Raphaël][raphael] library to be installed in a libraries compliant subfolder.
 - **hurricane_spinjs:** Renderer based on [Spin.js][spinjs]. Requires
