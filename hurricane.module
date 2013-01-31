@@ -40,7 +40,7 @@ function hurricane_library() {
   }
   if ($enabled_renderers) {
     foreach ($renderers as $id => $info) {
-      if (in_array($id, $enabled_renderers)) {
+      if (in_array($id, $enabled_renderers) && $enabled_renderers[$id]) {
         foreach (array('js', 'css', 'dependencies') as $type) {
           if (array_key_exists($type, $info)) {
             if (!array_key_exists($type, $library['hurricane'])) {

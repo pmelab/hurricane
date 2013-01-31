@@ -268,7 +268,7 @@ function hurricane_integration_reset_callback($form, &$form_state) {
   if ($form_state['triggering_element']['#id'] == 'edit-hurricane-reset') {
     $vars = variable_get($form_state['values']['var']);
     foreach ($vars as $key => $value) {
-      if (preg_match('/^hurricane_/', $key)) {
+      if (preg_match('/^hurricane_/', $key) && $key != 'hurricane_renderers') {
         unset($vars[$key]);
       }
     }
