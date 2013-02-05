@@ -10,8 +10,19 @@
  * Attach hurricane integration files to
  * drupal.ajax and drupal.autocomplete libraries.
  */
-function hurricane_library_alter(&$libraries, $module) {
+function hurricane_integration_library_alter(&$libraries, $module) {
   global $theme;
+  $enabled_renderers = theme_get_setting('hurricane_renderers', $theme);
+  $enabled = FALSE;
+  foreach ($enabled_renderers as $key => $value) {
+    if ($value != '0') {
+      $enabled = TRUE;
+    }
+  }
+  if (!$enabled) {
+    dpm('bla');
+    return;
+  }
   $path = drupal_get_path('module', 'hurricane_integration');
 
   $settings = hurricane_integration_get_settings($theme);
