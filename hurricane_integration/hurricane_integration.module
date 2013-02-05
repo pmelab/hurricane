@@ -14,13 +14,14 @@ function hurricane_integration_library_alter(&$libraries, $module) {
   global $theme;
   $enabled_renderers = theme_get_setting('hurricane_renderers', $theme);
   $enabled = FALSE;
-  foreach ($enabled_renderers as $key => $value) {
-    if ($value != '0') {
-      $enabled = TRUE;
+  if (is_array($enabled_renderers)) {
+    foreach ($enabled_renderers as $key => $value) {
+      if ($value != '0') {
+        $enabled = TRUE;
+      }
     }
   }
   if (!$enabled) {
-    dpm('bla');
     return;
   }
   $path = drupal_get_path('module', 'hurricane_integration');
