@@ -45,7 +45,7 @@ function hurricane_library_alter(&$libraries, $module) {
     );
     $libraries['drupal.autocomplete']['css'][$css] = array('type' => 'inline');
     $libraries['drupal.autocomplete']['css'][$autocomplete_css] = array();
-    $libraries['drupal.ajax']['dependencies'][] = array('hurricane', 'hurricane');
+    $libraries['drupal.autocomplete']['dependencies'][] = array('hurricane', 'hurricane');
   }
 }
 
