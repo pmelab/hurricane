@@ -61,9 +61,10 @@ function hurricane_library() {
  */
 function hurricane_renderers() {
   $cache = cache_get('hurricane_renderers');
-  if (empty($cache->data)) {
-    $cache->data = module_invoke_all('hurricane_renderers');
-    cache_set('hurricane_renderers', $cache->data);
+  if (empty($cache) || empty($cache->data)) {
+    $data = module_invoke_all('hurricane_renderers');
+    cache_set('hurricane_renderers', $data);
+    return $data;
   }
   return $cache->data;
 }
