@@ -56,7 +56,7 @@ function hurricane_raphael_hurricane_renderers() {
 function hurricane_raphael_library() {
   $library = array();
   $path = libraries_get_path('raphael');
-  if (!file_exists($path . '/raphael.js')) {
+  if (!file_exists($path . '/raphael-min.js')) {
     $msg = t('<a href="@lib">Raphaël</a> library is not installed. Please <a href="@download">download</a> and copy it into <a href="@folder">a libraries compliant folder</a> and clear all caches.', array(
       '@lib' => 'http://raphaeljs.com/',
       '@download' => 'http://raphaeljs.com/',
